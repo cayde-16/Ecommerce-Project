@@ -1,0 +1,24 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing:0px;
+}
+
+.navbar{
+	display: flex;
+	align-items: center;
+	text-align: center;
+	padding: 20px;
+}
+.navbar-link{
+	margin-right: 20px;
+}	
+
+a{
+	text-decoration: none;
+	color:#555;
+}
+
+p{
+	color:#555;
+}

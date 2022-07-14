@@ -81,11 +81,10 @@ p{
 	background:#563434;
 }
 .header{
-/* Created with https://www.css-gradient.com */
 	background: #CBC6D5;
-	background: -webkit-linear-gradient(top left, #CBC6D5, #6B6659);
-	background: -moz-linear-gradient(top left, #CBC6D5, #6B6659);
-	background: linear-gradient(to bottom right, #CBC6D5, #6B6659);
+	background: -webkit-linear-gradient(top, #CBC6D5, #B4AE98);
+	background: -moz-linear-gradient(top, #CBC6D5, #B4AE98);
+	background: linear-gradient(to bottom, #CBC6D5, #B4AE98);
 	/* background: radial-gradient(#fff, #ffd6d6) ; */
 	overflow: auto;
 }
@@ -155,3 +154,68 @@ h4{
 .rating .fa{
 	color: #ff523b;
 }
+
+.brands{
+	margin: 100px auto;
+}
+.col-5 img{
+	filter:grayscale(100%);
+	transition: transform 0.5s;
+}
+
+.col-5 img:hover{
+	filter:grayscale(0);
+	cursor: pointer;
+	transform: translateY(-10px);
+}
+.menu-icon{
+	width: 28px;
+	margin-left: 20px;
+	display: none;
+}
+.row-2{
+	justify-content: space-between;
+	margin: 100px auto 40px;
+}
+select{
+	color: black;
+	border: 1px solid #ff523b;
+	padding: 5;
+
+}
+select:focus{
+	outline: none;
+}
+@media only screen and (max-width: 800px){
+	nav ul{
+		position: absolute;
+		top:70px;
+		left:0;
+		background:#333 ;
+		width:100%;
+		overflow: hidden;
+		transition: max-height 0.5s;
+	}
+	nav ul li{
+		display: block;
+		margin-right: 50px;
+		margin-top:10px;
+		margin-bottom: 10px;
+	}
+	nav ul li a{
+		color:#fff;
+	}
+	.menu-icon{
+		display: block;
+		cursor: pointer;
+	}
+}
+
+@media only screen and (max-width: 600px){
+		.row{
+			text-align: center;
+		}
+		.col-2, .col-3, col-4{
+			flex-basis:100% ;
+		}
+	}

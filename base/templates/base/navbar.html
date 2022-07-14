@@ -7,12 +7,32 @@
         <a href="{% url 'main' %}"><img src="{% static '/images/logo.png' %}" atl=""width="125px"></a> 
     </div>
       <nav>
-        <ul>
-          <l1><a class="navbar-link" href="{% url 'main' %}">Home</a></l1>
-          <l1><a class="navbar-link" href="{% url 'product' %}">Products</a></l1>
-          <l1><a class="navbar-link" href="">Login</a></l1>
+        <ul id="MenuItems">
+          
+          <li><a class="navbar-link" href="{% url 'main' %}">Home</a></li>
+          <li><a class="navbar-link" href="">Login</a></li>
+          <li><a class="navbar-link" href="{% url 'product' %}">Products</a></li>
         </ul>
       </nav>
       <img src="{% static '/images/cart1.png' %}" width="30px" height="30px">
+      <img src="{% static '/images/menu.png' %}" class="menu-icon" width="30px" height="30px"onclick="menutoggle()">
+
+
 </div>
+<script>
+      var MenuItems = document.getElementById("MenuItems");
+
+      MenuItems.style.maxHeight = "0px";
+
+      function menutoggle(){
+        if (MenuItems.style.maxHeight == "0px")
+        {
+          MenuItems.style.maxHeight = "200px";
+        }
+        else
+        {
+          MenuItems.style.maxHeight = "0px";
+        }
+      }
+    </script>
 {% endblock %}

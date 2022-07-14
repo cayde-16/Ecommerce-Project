@@ -1,0 +1,18 @@
+
+{% load static %}
+{% block content %}
+
+<div class="navbar">
+    <div class="logo">
+        <a href="{% url 'main' %}"><img src="{% static '/images/logo.png' %}" atl=""width="125px"></a> 
+    </div>
+      <nav>
+        <ul>
+          <l1><a class="navbar-link" href="{% url 'main' %}">Home</a></l1>
+          <l1><a class="navbar-link" href="{% url 'product' %}">Products</a></l1>
+          <l1><a class="navbar-link" href="">Login</a></l1>
+        </ul>
+      </nav>
+      <img src="{% static '/images/cart1.png' %}" width="30px" height="30px">
+</div>
+{% endblock %}

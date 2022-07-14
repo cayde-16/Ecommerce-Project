@@ -7,9 +7,10 @@ def main(request):
     return render(request, 'base/main.html', context)
 
     
-def store(request):
+def product(request):
     context = {}
     return render(request,'base/store.html', context)
+
 
 def cart(request):
     context = {}

@@ -8,40 +8,26 @@
     <title>Redstore | Ecommerce</title>
     <link rel="stylesheet" href="{% static '/css/main.css'  %}">
     
-
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,600&display=swap" rel="stylesheet">
   </head>
 
-<body>
+<body class="header">
   <div class="header">
     <div class="container">
-      <div class="navbar">
-        <div class="logo">
-         <a href="{% url 'store' %}"><img src="{% static '/images/logo.png' %}" atl=""width="125px"></a> 
-        </div>
-          <nav>
-            <ul>
-              <l1><a class="navbar-link" href="">Home</a></l1>
-              <l1><a class="navbar-link" href="">Products</a></l1>
-              <l1><a class="navbar-link" href="">About</a></l1>
-              <l1><a class="navbar-link" href="">Contact</a></l1>
-              <l1><a class="navbar-link" href="">Account</a></l1>
-            </ul>
-          </nav>
-          <img src="{% static '/images/cart1.png' %}" width="30px" height="30px">
-      </div>
+      {% include 'base/navbar.html' %}
   
       <div class="row">
         <div class="col-2">
           <h1>Give Your Workout <br> A New Style!</h1>
           <p>Success isn't always about greatness, it's about
-             consistency, Consistent<br>hard work gains success, Greatness 
+             consistency, Consistent hard work gains success, Greatness 
               will come
           </p>
   
-          <a href=""class="btn">Explore Now &#10001;</a>
+          <a href="{% url 'product' %}"class="btn">Explore Now &#10001;</a>
   
         </div>
   
@@ -49,20 +35,127 @@
             <img src="{% static '/images/image1.png' %}">
         </div>
     </div>
+    <div class="categories">
+      <div class="small-container">
+        <div class="row">
+  
+          <div class="col-3">
+            <img src="{% static '/images/category-1.jpg' %}">
+          </div>
+    
+          <div class="col-3">
+            <img src="{% static '/images/category-2.jpg' %}">
+          </div>
+    
+          <div class="col-3">
+            <img src="{% static '/images/category-3.jpg' %}">
+          </div>
+    
+        </div>
+      </div>
+      
+    </div>
   </div>
   
-  
-  
-
-    <div class="container">
-      <br>
-      {% block content %}
-
-      {% endblock %}
+<!--featured products -->
+<div class="small-container">
+  <h1 class="title">Featured Products</h1>
+  <div class="row">
+    <div class="col-4">
+      <img src="{% static 'images/product-1.jpg' %}">
+      <h4>Red Printed T-Shirt</h4>
+      <div class="rating">
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star-o" ></i>
+      </div>
+      <p>$50.00</p>
     </div>
 
+    <div class="col-4">
+      <img src="{% static 'images/product-2.jpg' %}">
+      <h4>Red Printed T-Shirt</h4>
+      <div class="rating">
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star-o" ></i>
+      </div>
+      <p>$50.00</p>
+    </div>
+
+    <div class="col-4">
+      <img src="{% static 'images/product-3.jpg' %}">
+      <h4>Red Printed T-Shirt</h4>
+      <div class="rating">
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star-o" ></i>
+      </div>
+      <p>$50.00</p>
+    </div>
+
+    <div class="col-4">
+      <img src="{% static 'images/product-4.jpg' %}">
+      <h4>Red Printed T-Shirt</h4>
+      <div class="rating">
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star-o" ></i>
+      </div>
+      <p>$50.00</p>
+    </div>
+
+    <div class="col-4">
+      <img src="{% static 'images/product-5.jpg' %}">
+      <h4>Red Printed T-Shirt</h4>
+      <div class="rating">
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star-o" ></i>
+      </div>
+      <p>$50.00</p>
+    </div>
+
+    <div class="col-4">
+      <img src="{% static 'images/product-6.jpg' %}">
+      <h4>Red Printed T-Shirt</h4>
+      <div class="rating">
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star-o" ></i>
+      </div>
+      <p>$50.00</p>
+    </div>
+  </div>
+
+  <div class="title">Lastest Products</div>
+    <div class="col-4">
+      <img src="{% static 'images/product-6.jpg' %}">
+      <h4>Red Printed T-Shirt</h4>
+      <div class="rating">
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star" ></i>
+        <i class="fa fa-star-o" ></i>
+      </div>
+      <p>$50.00</p>
+    </div>
+  
+  
+    
   
 </body>
 </html>
-
-</body>

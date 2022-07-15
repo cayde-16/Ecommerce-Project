@@ -9,7 +9,7 @@ def main(request):
     
 def product(request):
     context = {}
-    return render(request,'base/store.html', context)
+    return render(request,'base/products.html', context)
 
 
 def cart(request):
@@ -17,10 +17,10 @@ def cart(request):
     return render(request, 'base/cart.html', context)
 
 
-def checktout(request):
-    context = {}
-    return render(request, "base/checkout.html", context)
-
 def details(request):
     context = {}
     return render(request, 'base/details.html', context)
+
+def login_user(request):
+    context = {}
+    return render(request,'base/login.html', context)

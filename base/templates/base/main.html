@@ -63,7 +63,7 @@
   <div class="row">
     {% for product in products %}
     <div class="col-4">
-      <img src="{% static 'images/product-1.jpg' %}">
+      <img src="{{product.main_image.url}}">
       <h4>{{product.name}}</h4>
       <div class="rating">
         <i class="fa fa-star" ></i>
@@ -79,22 +79,7 @@
     
   </div>
 
-  <h1 class="title">Lastest Products</h1>
-  <div class="row">
-    {% for product in products %}
-    <div class="col-4">
-      <img src="{{product.main_image}}">
-      <h4>{{product.name}}</h4>
-      <div class="rating">
-        <i class="fa fa-star" ></i>
-        <i class="fa fa-star" ></i>
-        <i class="fa fa-star" ></i>
-        <i class="fa fa-star" ></i>
-        <i class="fa fa-star-o" ></i>
-      </div>
-      <p>${{product.price|floatformat:2}}</p>
-    </div>
-  {% endfor %}
+  {% include 'base/latest_product_component.html' %}
  
 
   </div>

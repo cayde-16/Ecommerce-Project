@@ -32,8 +32,9 @@ def checkout(request):
     context = {}
     return render(request, 'base/checkout.html', context)
     
-def details(request):
-    context = {}
+def details(request, pk):
+    product = Product.objects.get(id=pk)
+    context = {'product':product}
     return render(request, 'base/details.html', context)
 
 def login_user(request):

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from . models import *
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -40,3 +41,7 @@ def details(request, pk):
 def login_user(request):
     context = {}
     return render(request,'base/login.html', context)
+
+
+def update_item(request):
+    return JsonResponse('Item was added', safe=False)

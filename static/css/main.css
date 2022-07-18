@@ -418,3 +418,12 @@ form a{
 	transform: translateX(100px);
 	transition: transform 1s;
 }
+.box-element{
+	margin-top: 100px;
+	flex-basis: 50%;
+	min-width: 500px;
+}
+.box-element #CheckOutForm{
+	left: -320px;
+	min-width: 408px;
+}

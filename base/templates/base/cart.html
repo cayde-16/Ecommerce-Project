@@ -32,69 +32,44 @@
             <th>Subtotal</th>
         </tr>
 
+        {% for item in items %}
         <tr>
             <td>
                 <div class="cart-info">
-                    <img src="{% static '/images/buy-1.jpg' %}">
+                    <img src="{{item.product.main_image.url}}">
                     <div class="div">
-                        <p>Red printed T-Shirt</p>
-                        <small>Price:$50.00</small>
+                        <p>{{item.product.name}}</p>
+                        <small>${{item.product.price|floatformat:2}}</small>
                         <br>
                         <a href="">Remove</a>
                     </div>
                 </div>
             </td>
-            <td><input type="number" value="1"></td>
-            <td>$50.00</td>
+            <td>{{item.quanity}}</td>
+            <td>${{item.get_total|floatformat:2}}</td>
         </tr>
-
-        <tr>
-            <td>
-                <div class="cart-info">
-                    <img src="{% static '/images/buy-2.jpg' %}">
-                    <div class="div">
-                        <p>Red printed T-Shirt</p>
-                        <small>Price:$50.00</small>
-                        <br>
-                        <a href="">Remove</a>
-                    </div>
-                </div>
-            </td>
-            <td><input type="number" value="1"></td>
-            <td>$50.00</td>
-        </tr>
-
-        <tr>
-            <td>
-                <div class="cart-info">
-                    <img src="{% static '/images/buy-3.jpg' %}">
-                    <div class="div">
-                        <p>Red printed T-Shirt</p>
-                        <small>Price:$50.00</small>
-                        <br>
-                        <a href="">Remove</a>
-                    </div>
-                </div>
-            </td>
-            <td><input type="number" value="1"></td>
-            <td>$50.00</td>
-        </tr>
+        {% endfor %}
     </table>
 
     <div class="total-price">
         <table>
-            <tr>
+            <!-- <tr>
                 <td>Subtotal</td>
-                <td>$200.00</td>
-            </tr>
-            <tr>
+                <td>${{order.get_cart_total|floatformat:2}}</td>
+            </tr> -->
+            <!-- <tr>
                 <td>Tax</td>
-                <td>$35.00</td>
-            </tr>
+                <td>${{item.get_total|floatformat:2}}</td>
+            </tr> -->
             <tr>
                 <td>Total</td>
-                <td>$235.00</td>
+                <td>${{order.get_cart_total|floatformat:2}}</td>
             </tr>
+
+            <tr>
+                <td><a href="{% url 'checkout' %}" class="btn">Check Out</a></td>
+            </tr>
+            
         </table>
     </div>
     

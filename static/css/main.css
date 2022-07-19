@@ -427,3 +427,18 @@ form a{
 	left: -320px;
 	min-width: 408px;
 }
+
+.notifications-icon{
+	height:24px
+}
+.notifications-icon-container{
+	position: relative;
+}
+.notifications-count{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	background-color: red;
+	color: white;
+	font-family: 'Roboto', sans-serif;
+}

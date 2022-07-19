@@ -1,6 +1,9 @@
 
 {% load static %}
 {% block content %}
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
 
 <div class="navbar">
     <div class="logo">
@@ -14,7 +17,10 @@
           <li><a class="navbar-link" href="{% url 'product' %}">Products</a></li>
         </ul>
       </nav>
-      <a href="{% url 'cart' %}"><img src="{% static '/images/cart1.png' %}" width="30px" height="30px"></a>
+      <div class="notifications-icon-container">
+        <a href="{% url 'cart' %}"><img src="{% static '/images/cart1.png' %}" width="30px" height="30px"></a>
+        <div class="notifications-count">3</div>
+      </div>
       <img src="{% static '/images/menu.png' %}" class="menu-icon" width="30px" height="30px"onclick="menutoggle()">
 
 

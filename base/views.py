@@ -6,14 +6,42 @@ import json
 # Create your views here.
 
 def main(request):
+
+
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total':0,'get_cart_items':0}
+        cartItems = order['get_cart_items']
+
     products = Product.objects.all()[0:3]
     latest_products = Product.objects.all().reverse()[3:9]
-    context = {'latest_products':latest_products,'products': products}
+
+
+    context = {'latest_products':latest_products,'products': products, 'cartItems':cartItems}
     return render(request, 'base/main.html', context)
+
+   
+    
 
 
 def product(request):
-    context = {}
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total':0,'get_cart_items':0}
+        cartItems = order['get_cart_items']
+
+
+    context = {'cartItems':cartItems}
     return render(request,'base/products.html', context)
 
 
@@ -23,15 +51,27 @@ def cart(request):
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
     else:
         items = []
         order = {'get_cart_total':0,'get_cart_items':0}
+        cartItems = order['get_cart_items']
 
-    context = {"items":items, "order":order}
+    context = {"items":items, "order":order, 'cartItems':cartItems}
     return render(request, 'base/cart.html', context)
 
 def checkout(request):
-    context = {}
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total':0,'get_cart_items':0}
+        cartItems = order['get_cart_items']
+
+    context = {'cartItems':cartItems}
     return render(request, 'base/checkout.html', context)
     
 def details(request, pk):
@@ -41,11 +81,13 @@ def details(request, pk):
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
     else:
         items = []
         order = {'get_cart_total':0,'get_cart_items':0}
+        cartItems = order['get_cart_items']
 
-    context = {'order':order, 'items':items, 'product':product}
+    context = {'order':order, 'items':items, 'product':product, 'cartItems':cartItems}
     return render(request, 'base/details.html', context)
 
 def login_user(request):

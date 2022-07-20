@@ -19,7 +19,7 @@
       </nav>
       <div class="notifications-icon-container">
         <a href="{% url 'cart' %}"><img src="{% static '/images/cart1.png' %}" width="30px" height="30px"></a>
-        <div class="notifications-count">3</div>
+        <div class="notifications-count">{{cartItems}}</div>
       </div>
       <img src="{% static '/images/menu.png' %}" class="menu-icon" width="30px" height="30px"onclick="menutoggle()">
 

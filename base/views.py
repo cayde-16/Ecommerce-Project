@@ -2,12 +2,14 @@ from django.shortcuts import render
 from . models import *
 from django.http import JsonResponse
 import json
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+import datetime 
+
 
 # Create your views here.
 
 def main(request):
-
-
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -22,7 +24,7 @@ def main(request):
     latest_products = Product.objects.all().reverse()[3:9]
 
 
-    context = {'latest_products':latest_products,'products': products, 'cartItems':cartItems}
+    context = {'latest_products':latest_products,'products': products, 'cartItems':cartItems, 'items':items}
     return render(request, 'base/main.html', context)
 
    
@@ -30,6 +32,7 @@ def main(request):
 
 
 def product(request):
+    products = Product.objects.all()
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -37,11 +40,11 @@ def product(request):
         cartItems = order.get_cart_items
     else:
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0}
+        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
 
-    context = {'cartItems':cartItems}
+    context = {'cartItems':cartItems, 'products':products}
     return render(request,'base/products.html', context)
 
 
@@ -54,7 +57,7 @@ def cart(request):
         cartItems = order.get_cart_items
     else:
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0}
+        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
     context = {"items":items, "order":order, 'cartItems':cartItems}
@@ -69,12 +72,16 @@ def checkout(request):
         cartItems = order.get_cart_items
     else:
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0}
+        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
-    context = {'cartItems':cartItems}
+    if request.method == 'POST':
+        return redirect('main')
+
+
+    context = {'cartItems':cartItems, 'order':order, 'items':items}
     return render(request, 'base/checkout.html', context)
-    
+
 def details(request, pk):
     product = Product.objects.get(id=pk)
 
@@ -85,14 +92,24 @@ def details(request, pk):
         cartItems = order.get_cart_items
     else:
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0}
+        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
     context = {'order':order, 'items':items, 'product':product, 'cartItems':cartItems}
     return render(request, 'base/details.html', context)
 
 def login_user(request):
-    context = {}
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
+        cartItems = order['get_cart_items']
+
+    context = {'order':order, 'items':items,'cartItems':cartItems}
     return render(request,'base/login.html', context)
 
 
@@ -120,3 +137,12 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse('Item was added', safe=False)
+
+
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    if request.user.is_authenticated:
+        customer = request.user.customer
+    else:
+        prin('User is not logged in')
+    return JsonResponse('Payment Complete!', safe=False)

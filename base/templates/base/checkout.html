@@ -19,7 +19,8 @@
     <div class="container">
       {% include 'base/navbar.html' %}
       
-    
+    <form id ="form" method="POST">
+      {% csrf_token %}
       <div class="wrapper">
         <div class="payment">
           <div class="payment-logo">
@@ -29,100 +30,92 @@
           
           <h2>Payment Gateway</h2>
           <div class="form">
-            <div class="card space icon-relative">
-              <label class="label">Email:</label>
-              <input type="text" class="input" placeholder="email@email.com">
-              <i class="fas fa-user"></i>
-            </div>
-
-            <div class="card space icon-relative">
-              <label class="label">Card holder:</label>
-              <input type="text" class="input" placeholder="Mr.Anderson">
-              <i class="fas fa-user"></i>
-            </div>
-            <div class="card space icon-relative">
-              <label class="label">Card number:</label>
-              <input type="text" class="input" data-mask="0000 0000 0000 0000" placeholder="Card Number">
-              <i class="far fa-credit-card"></i>
-            </div>
-            <div class="card-grp space">
-              <div class="card-item icon-relative">
-                <label class="label">Expiry date:</label>
-                <input type="text" name="expiry-data" class="input" data-mask="00 / 00"  placeholder="00 / 00">
-                <i class="far fa-calendar-alt"></i>
+            
+              <div class="card space icon-relative">
+                <label class="label">Card holder:</label>
+                <input type="text" class="input" placeholder="Mr.Anderson">
+                <i class="fas fa-user"></i>
               </div>
-              <div class="card-item icon-relative">
-                <label class="label">CVC:</label>
-                <input type="text" class="input" data-mask="000" placeholder="000">
-                <i class="fas fa-lock"></i>
+              <div class="card space icon-relative">
+                <label class="label">Card number:</label>
+                <input type="text" class="input" data-mask="0000 0000 0000 0000" placeholder="Card Number">
+                <i class="far fa-credit-card"></i>
               </div>
-            </div>
-
-            <a href="{% url 'main' %}" style="color:white">
-              <div class="btn">
-                  Pay
-              </div> 
-            </a>            
+              <div class="card-grp space">
+                <div class="card-item icon-relative">
+                  <label class="label">Expiry date:</label>
+                  <input type="text" name="expiry-data" class="input" data-mask="00 / 00"  placeholder="00 / 00">
+                  <i class="far fa-calendar-alt"></i>
+                </div>
+                <div class="card-item icon-relative">
+                  <label class="label">CVC:</label>
+                  <input type="text" class="input" data-mask="000" placeholder="000">
+                  <i class="fas fa-lock"></i>
+                </div>
+              </div>  
+                <div id="make-payment">
+                    <input type="submit" id="make-payment" class="btn submit">     
+                </div>                       
           </div>
         </div>
       </div>
-      
+    </form>  
           <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     </div>
   </div>
-  
-<!--cart details -->
 
-<!-- <div class="account-page">
-    <div class="container">
-        <div class="row"> -->
-            <!-- <div class="col-2">
-                <img src="{% static 'images/image1.png' %}" alt="" width="100%">
-            </div> -->
 
-            <!-- <div class="col-2">
-                <div class="form-container">
-                  <div class="form-container">
-                    <span onclick="billing()">Billing Adress </span>
-                    <span onclick="Payment()">Payment Method</span>
-                    <hr id="Indicator">
-                  </div>
-                  
-                    <form action="" id="LoginForm">
-                      <input type="text" placeholder="Username">
-                      <input type="password" placeholder="Password">
-                      <button type="submit" class="btn">Proceed</button>
-                      
-                    </form>
+<script type="text/javascript">
+    var user = '{{request.user}}'
+    var shipping = "{{order.shipping}}"
+    var total = '{{order.get_cart_total|floatformat:2}}'
+
+   
+
+    if(shipping == 'False'){
+        document.getElementById('form-wrapper').classList.remove("hidden");
+        document.getElementById('payment-info').classList.remove("hidden");
+    }
+    var form = document.getElementById('form')
     
-                    <form action="" id="RegForm">
-                      <input type="text" placeholder="Username">
-                      <input type="email" placeholder="Email">
+    form.addEventListner('submit', function(e){
+      e.preventDefault()
+      console.log('Form submitted...')
+    })
 
-                    </form>
-            </div>
-        </div>
-    </div>
-</div>
-    
-    <script>
-      var LoginForm = document.getElementById("LoginForm");
-      var RegForm = document.getElementById("RegForm");
-      var Indicator = document.getElementById("Indicator");
+    document.getElementById('make-payment').addEventListner('click', function(e){
+      submitFormData()
+      console.log('payment button clicked')
+    })
 
-      function Payment(){
-        RegForm.style.transform = "translateX(0px)";
-        LoginForm.style.transform = "translateX(0px)";
-        Indicator.style.transform = "translateX(200px)";
+    function submitFormData(){
+      console.log('Payment button clicked')
+
+      var userFormData = {  
+          'name':null,
+          'email':null,
       }
-      
-      function billing(){
-        RegForm.style.transform = "translateX(300px)";
-        LoginForm.style.transform = "translateX(300px)";
-        Indicator.style.transform = "translate(0px)";
-      }
-    </script> -->
+
+      var url = '/process_order/'
+      fetch(url,{
+        method:'POST',
+        headers:{
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body:JSON.stringify({'form':userFormData})
+
+      })
+      .then((response) => response.json())
+      .then((data) =>{
+        console.log('Success:' ,data);
+        alert('Transaction completed');
+        window.location.href = "{% url 'main' %}"
+      })
+    }
+</script>
+
 
 
     

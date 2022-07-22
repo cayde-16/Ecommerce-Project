@@ -11,10 +11,14 @@
     </div>
       <nav>
         <ul id="MenuItems">
+          {% if user.is_authenticated %}
+          <li><a class="navbar-link" href="{% url 'product' %}">Products</a></li>
+          <li><a class="navbar-link" href="{% url 'product' %}">Logout</a></li>
           
-          <li><a class="navbar-link" href="{% url 'main' %}">Home</a></li>
+          {% else %}
           <li><a class="navbar-link" href="{% url 'login' %}">Login</a></li>
           <li><a class="navbar-link" href="{% url 'product' %}">Products</a></li>
+          {% endif %}
         </ul>
       </nav>
       <div class="notifications-icon-container">
@@ -41,6 +45,7 @@
         }
       }
     </script>
+    
 
 <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
 {% endblock %}

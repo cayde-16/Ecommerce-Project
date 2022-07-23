@@ -16,9 +16,24 @@ def main(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        cart = json.loads(request.COOKIES['cart'])
+        print('Cart:', cart)
         items = []
         order = {'get_cart_total':0,'get_cart_items':0}
         cartItems = order['get_cart_items']
+
+    for i in cart:
+        cartItems += cart[i]['quanity']
+
+        product = Product.objects.get(id=i)
+        total = (product.price * cart[i]['quanity'])
+
+        order['get_cart_total'] += total
+        order['get_cart_items'] += cart[i]['quanity']
 
     products = Product.objects.all()[0:3]
     latest_products = Product.objects.all().reverse()[3:9]
@@ -39,10 +54,18 @@ def product(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        cart = json.loads(request.COOKIES['cart'])
+        print('Cart:', cart)
         items = []
         order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
+    for i in cart:
+        cartItems += cart[i]['quanity']
 
     context = {'cartItems':cartItems, 'products':products}
     return render(request,'base/products.html', context)
@@ -56,10 +79,24 @@ def cart(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        cart = json.loads(request.COOKIES['cart'])
+        print('Cart:', cart)
         items = []
         order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
+    for i in cart:
+        cartItems += cart[i]['quanity']
+
+        product = Product.objects.get(id=i)
+        total = (product.price * cart[i]['quanity'])
+
+        order['get_cart_total'] += total
+        order['get_cart_items'] += cart[i]['quanity']
     context = {"items":items, "order":order, 'cartItems':cartItems}
     return render(request, 'base/cart.html', context)
 
@@ -71,9 +108,18 @@ def checkout(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        cart = json.loads(request.COOKIES['cart'])
+        print('Cart:', cart)
         items = []
         order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
+
+    for i in cart:
+        cartItems += cart[i]['quanity']
 
     if request.method == 'POST':
         return redirect('main')
@@ -91,9 +137,18 @@ def details(request, pk):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        cart = json.loads(request.COOKIES['cart'])
+        print('Cart:', cart)
         items = []
         order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
+
+    for i in cart:
+        cartItems += cart[i]['quanity']
 
     context = {'order':order, 'items':items, 'product':product, 'cartItems':cartItems}
     return render(request, 'base/details.html', context)
@@ -105,9 +160,17 @@ def login_user(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        cart = json.loads(request.COOKIES['cart'])
+        print('Cart:', cart)
         items = []
         order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
+    for i in cart:
+        cartItems += cart[i]['quanity']
 
     context = {'order':order, 'items':items,'cartItems':cartItems}
     return render(request,'base/login.html', context)
@@ -141,8 +204,17 @@ def updateItem(request):
 
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+
     if request.user.is_authenticated:
         customer = request.user.customer
+        total = float(data['form']['total'])
+        order.transaction_id = transaction_id
+
+        if total == order.get_cart_total:
+            order.complete = True
+        order.save()
     else:
-        prin('User is not logged in')
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        print('User is not logged in')
     return JsonResponse('Payment Complete!', safe=False)

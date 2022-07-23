@@ -12,6 +12,35 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,600&display=swap" rel="stylesheet">
+
+  <script>
+    function getCookie(name) {
+		    // Split cookie string and get all individual name=value pairs in an array
+		    var cookieArr = document.cookie.split(";");
+
+		    // Loop through the array elements
+		    for(var i = 0; i < cookieArr.length; i++) {
+		        var cookiePair = cookieArr[i].split("=");
+
+		        /* Removing whitespace at the beginning of the cookie name
+		        and compare it with the given string */
+		        if(name == cookiePair[0].trim()) {
+		            // Decode the cookie value and return
+		            return decodeURIComponent(cookiePair[1]);
+		        }
+		    }
+
+		    // Return null if not found
+		    return null;
+		}
+		var cart = JSON.parse(getCookie('cart'))
+    if(cart == undefined){
+      cart = {}
+      console.log('Cart was created')
+      document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    }
+    console.log('Cart:',cart)
+  </script>
 </head>
 
 <body class="header">
@@ -65,7 +94,7 @@
                 <option>Small</option>
             </select>
             <input  action="add"type="number" value="1">
-            <a data-product="{{product.id}}" data-action="add" href="{% url '' %}" class=" update-cart btn">Add To Cart</a>
+            <a data-product="{{product.id}}" data-action="add" href="{% url 'details' product.id %}" class=" update-cart btn">Add To Cart</a>
             <h3>Product Details <i class="fa fa-indent" ></i> </h3>
             <br>
             <p>Give your rummer wardobe a style upgrade with the HRX Men's Active T-shirt. 
@@ -195,6 +224,12 @@
         return cookieValue;
     }
     const csrftoken = getToken('csrftoken');
+
+    
+    </script>
+
+    <script>
+      
     </script>
 </body>
 {% endblock %}

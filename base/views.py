@@ -25,7 +25,7 @@ def main(request):
         cart = json.loads(request.COOKIES['cart'])
         print('Cart:', cart)
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
+        order = {'get_cart_total':0,'get_cart_items':-1, 'shipping':False}
         cartItems = order['get_cart_items']
 
         for i in cart:
@@ -62,7 +62,7 @@ def main(request):
    
 def logoutUser(request):
     logout(request)
-    return redirect('')
+    return redirect('main')
 
 
 def product(request):
@@ -80,7 +80,7 @@ def product(request):
         cart = json.loads(request.COOKIES['cart'])
         print('Cart:', cart)
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
+        order = {'get_cart_total':0,'get_cart_items':-1, 'shipping':False}
         cartItems = order['get_cart_items']
 
         for i in cart:
@@ -126,7 +126,7 @@ def cart(request):
         cart = json.loads(request.COOKIES['cart'])
         print('Cart:', cart)
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
+        order = {'get_cart_total':0,'get_cart_items':-1, 'shipping':False}
         cartItems = order['get_cart_items']
 
         for i in cart:
@@ -145,6 +145,7 @@ def cart(request):
                         'name':product.name,
                         'price':product.price,
                         'imageURL':product.imageURL,
+                        'description':product.description
                     },
                 'quanity':cart[i]['quanity'],
                 'get_total':total,
@@ -170,7 +171,7 @@ def checkout(request):
         cart = json.loads(request.COOKIES['cart'])
         print('Cart:', cart)
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
+        order = {'get_cart_total':0,'get_cart_items':-1, 'shipping':False}
         cartItems = order['get_cart_items']
 
         for i in cart:
@@ -221,7 +222,7 @@ def details(request, pk):
         cart = json.loads(request.COOKIES['cart'])
         print('Cart:', cart)
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
+        order = {'get_cart_total':0,'get_cart_items':-1, 'shipping':False}
         cartItems = order['get_cart_items']
 
         for i in cart:
@@ -265,7 +266,7 @@ def login_user(request):
         cart = json.loads(request.COOKIES['cart'])
         print('Cart:', cart)
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
+        order = {'get_cart_total':0,'get_cart_items':-1, 'shipping':False}
         cartItems = order['get_cart_items']
 
         for i in cart:

@@ -36,4 +36,4 @@ six==1.16.0
 subprocess32==3.5.4
 urllib3==1.26.11
 wxPython== 4.0.0a3
-wxPython-common==4.0.0a3
+

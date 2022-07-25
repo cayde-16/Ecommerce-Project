@@ -1,3 +1,4 @@
+import _tkinter
 from tkinter import CASCADE
 from tkinter.tix import MAX
 from django.db import models

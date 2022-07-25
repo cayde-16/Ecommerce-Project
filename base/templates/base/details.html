@@ -115,46 +115,23 @@
 <div class="small-container">
  
   <div class="row">
+    {% for product in products %}
     <div class="col-4">
-      <img src="{% static 'images/product-4.jpg' %}">
-      <h4>Blue Shirt</h4>
-      <div class="rating">
-        <i class="fa fa-star" ></i>
-        <i class="fa fa-star" ></i>
-        <i class="fa fa-star" ></i>
-        <i class="fa fa-star" ></i>
-        <i class="fa fa-star-o" ></i>
-      </div>
-      <p>$50.00</p>
+      <a href="{% url 'details' product.id %}">
+        <img src="{{product.imageURL}}">
+        <h4>{{product.name}}</h4>
+        <div class="rating">
+          <i class="fa fa-star" ></i>
+          <i class="fa fa-star" ></i>
+          <i class="fa fa-star" ></i>
+          <i class="fa fa-star" ></i>
+          <i class="fa fa-star-o" ></i>
+        </div>
+        <p>${{product.price}}</p>
+      </a>
     </div>
+    {% endfor %}
 
-
-    <div class="col-4">
-        <img src="{% static 'images/product-5.jpg' %}">
-        <h4>Grey Shoes</h4>
-        <div class="rating">
-          <i class="fa fa-star" ></i>
-          <i class="fa fa-star" ></i>
-          <i class="fa fa-star" ></i>
-          <i class="fa fa-star" ></i>
-          <i class="fa fa-star-o" ></i>
-        </div>
-        <p>$50.00</p>
-      </div>
-
-
-      <div class="col-4">
-        <img src="{% static 'images/product-6.jpg' %}">
-        <h4>Green Puma Shirt</h4>
-        <div class="rating">
-          <i class="fa fa-star" ></i>
-          <i class="fa fa-star" ></i>
-          <i class="fa fa-star" ></i>
-          <i class="fa fa-star" ></i>
-          <i class="fa fa-star-o" ></i>
-        </div>
-        <p>$50.00</p>
-      </div>
     
   
     <script>

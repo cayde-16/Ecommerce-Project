@@ -13,7 +13,7 @@
         <ul id="MenuItems">
           {% if user.is_authenticated %}
           <li><a class="navbar-link" href="{% url 'product' %}">Products</a></li>
-          <li><a class="navbar-link" href="{% url 'product' %}">Logout</a></li>
+          <li><a class="navbar-link" href="{% url 'logout' %}">Logout</a></li>
           
           {% else %}
           <li><a class="navbar-link" href="{% url 'login' %}">Login</a></li>

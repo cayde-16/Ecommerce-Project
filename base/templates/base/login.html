@@ -39,18 +39,17 @@
                     <span onclick="register()">Register</span>
                     <hr id="Indicator">
                   </div>
-                  
-                    <form action="" id="LoginForm">
-                      <input type="text" placeholder="Username">
-                      <input type="password" placeholder="Password">
-                      <button type="submit" class="btn">Login</button>
-                      <a href="">Forgot password</a>
+                    <form  id="LoginForm">
+                        <!-- {% csrf_token %} -->
+                       <input id="username" type="text" placeholder="username">
+                      <input id="password"name="password" type="password" placeholder="password">
+                       <button type="submit" class="btn">Login</button>
+                      <a href="">Forgot password</a> 
                     </form>
-    
                     <form action="" id="RegForm">
                       <input type="text" placeholder="Username">
                       <input type="email" placeholder="Email">
-                      <input type="password" placeholder="Password">
+                      <input type="password" placeholder="password">
                       <button type="submit" class="btn">Register</button>
                     </form>
             </div>

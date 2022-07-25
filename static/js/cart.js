@@ -16,33 +16,29 @@ for (var i = 0; i < updateBtns.length; i++){
 }
 
 function addCookieItem(productId, action){
-    console.log('Not logged in')
-    cart = {
-        1:{'quanity':4},
-        4:{'quanity':1},
-        6:{'quanity':3}
-    }
+    console.log('User is not authenticated')
 
-    if(action == 'add'){
-        if(cart[productId] == undefined){
-            cart[productId] = {'quanity':1}
-        }else{
-            cart[productId]['quanity'] += 1
-        }
-    }
+	if (action == 'add'){
+		if (cart[productId] == undefined){
+		cart[productId] = {'quanity':1}
 
-    if(action == 'remove'){
-        cart[productId]['quanity'] -= 1
+		}else{
+			cart[productId]['quanity'] += 1
+		}
+	}
 
-        if(cart[productId]['quanity'] <= 0){
-            console.log('Remove Item')
-            delete cart[productId]
-        }
-    }
+	if (action == 'remove'){
+		cart[productId]['quanity'] -= 1
 
-    console.log('Cart:', cart)
-    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
-    location.reload()
+		if (cart[productId]['quanity'] <= 0){
+			console.log('Item should be deleted')
+			delete cart[productId];
+		}
+	}
+	console.log('CART:', cart)
+	document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+	
+	location.reload()
 }
 
 function updateUserOrder(productId, action){

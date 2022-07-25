@@ -5,6 +5,8 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 import datetime 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 
 
 # Create your views here.
@@ -23,17 +25,32 @@ def main(request):
         cart = json.loads(request.COOKIES['cart'])
         print('Cart:', cart)
         items = []
-        order = {'get_cart_total':0,'get_cart_items':0}
+        order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
-    for i in cart:
-        cartItems += cart[i]['quanity']
+        for i in cart:
+            try:
+                cartItems += cart[i]['quanity']
 
-        product = Product.objects.get(id=i)
-        total = (product.price * cart[i]['quanity'])
+                product = Product.objects.get(id=i)
+                total = (product.price * cart[i]['quanity'])
 
-        order['get_cart_total'] += total
-        order['get_cart_items'] += cart[i]['quanity']
+                order['get_cart_total'] += total
+                order['get_cart_items'] += cart[i]['quanity']
+
+                item = {
+                    'product':{
+                        'id': product.id,
+                        'name':product.name,
+                        'price':product.price,
+                        'imageURL':product.imageURL,
+                    },
+                'quanity':cart[i]['quanity'],
+                'get_total':total,
+                }
+                items.append(item)
+            except:
+             pass
 
     products = Product.objects.all()[0:3]
     latest_products = Product.objects.all().reverse()[3:9]
@@ -43,7 +60,9 @@ def main(request):
     return render(request, 'base/main.html', context)
 
    
-    
+def logoutUser(request):
+    logout(request)
+    return redirect('')
 
 
 def product(request):
@@ -64,8 +83,29 @@ def product(request):
         order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
-    for i in cart:
-        cartItems += cart[i]['quanity']
+        for i in cart:
+            try:
+                cartItems += cart[i]['quanity']
+
+                product = Product.objects.get(id=i)
+                total = (product.price * cart[i]['quanity'])
+
+                order['get_cart_total'] += total
+                order['get_cart_items'] += cart[i]['quanity']
+
+                item = {
+                    'product':{
+                        'id': product.id,
+                        'name':product.name,
+                        'price':product.price,
+                        'imageURL':product.imageURL,
+                    },
+                'quanity':cart[i]['quanity'],
+                'get_total':total,
+                }
+                items.append(item)
+            except:
+             pass
 
     context = {'cartItems':cartItems, 'products':products}
     return render(request,'base/products.html', context)
@@ -89,14 +129,29 @@ def cart(request):
         order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
-    for i in cart:
-        cartItems += cart[i]['quanity']
+        for i in cart:
+            try:
+                cartItems += cart[i]['quanity']
 
-        product = Product.objects.get(id=i)
-        total = (product.price * cart[i]['quanity'])
+                product = Product.objects.get(id=i)
+                total = (product.price * cart[i]['quanity'])
 
-        order['get_cart_total'] += total
-        order['get_cart_items'] += cart[i]['quanity']
+                order['get_cart_total'] += total
+                order['get_cart_items'] += cart[i]['quanity']
+
+                item = {
+                    'product':{
+                        'id': product.id,
+                        'name':product.name,
+                        'price':product.price,
+                        'imageURL':product.imageURL,
+                    },
+                'quanity':cart[i]['quanity'],
+                'get_total':total,
+                }
+                items.append(item)
+            except:
+             pass
     context = {"items":items, "order":order, 'cartItems':cartItems}
     return render(request, 'base/cart.html', context)
 
@@ -118,8 +173,29 @@ def checkout(request):
         order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
-    for i in cart:
-        cartItems += cart[i]['quanity']
+        for i in cart:
+            try:
+                cartItems += cart[i]['quanity']
+
+                product = Product.objects.get(id=i)
+                total = (product.price * cart[i]['quanity'])
+
+                order['get_cart_total'] += total
+                order['get_cart_items'] += cart[i]['quanity']
+
+                item = {
+                    'product':{
+                        'id': product.id,
+                        'name':product.name,
+                        'price':product.price,
+                        'imageURL':product.imageURL,
+                    },
+                'quanity':cart[i]['quanity'],
+                'get_total':total,
+                }
+                items.append(item)
+            except:
+             pass
 
     if request.method == 'POST':
         return redirect('main')
@@ -130,6 +206,7 @@ def checkout(request):
 
 def details(request, pk):
     product = Product.objects.get(id=pk)
+    products = Product.objects.all()[:3]
 
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -147,10 +224,31 @@ def details(request, pk):
         order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
 
-    for i in cart:
-        cartItems += cart[i]['quanity']
+        for i in cart:
+            try:
+                cartItems += cart[i]['quanity']
 
-    context = {'order':order, 'items':items, 'product':product, 'cartItems':cartItems}
+                product = Product.objects.get(id=i)
+                total = (product.price * cart[i]['quanity'])
+
+                order['get_cart_total'] += total
+                order['get_cart_items'] += cart[i]['quanity']
+
+                item = {
+                    'product':{
+                        'id': product.id,
+                        'name':product.name,
+                        'price':product.price,
+                        'imageURL':product.imageURL,
+                    },
+                'quanity':cart[i]['quanity'],
+                'get_total':total,
+                }
+                items.append(item)
+            except:
+             pass
+
+    context = {'order':order, 'items':items, 'product':product, 'products':products, 'cartItems':cartItems}
     return render(request, 'base/details.html', context)
 
 def login_user(request):
@@ -169,10 +267,46 @@ def login_user(request):
         items = []
         order = {'get_cart_total':0,'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
-    for i in cart:
-        cartItems += cart[i]['quanity']
 
-    context = {'order':order, 'items':items,'cartItems':cartItems}
+        for i in cart:
+            try:
+                cartItems += cart[i]['quanity']
+
+                product = Product.objects.get(id=i)
+                total = (product.price * cart[i]['quanity'])
+
+                order['get_cart_total'] += total
+                order['get_cart_items'] += cart[i]['quanity']
+
+                item = {
+                    'product':{
+                        'id': product.id,
+                        'name':product.name,
+                        'price':product.price,
+                        'imageURL':product.imageURL,
+                    },
+                'quanity':cart[i]['quanity'],
+                'get_total':total,
+                }
+                items.append(item)
+            except:
+             pass
+        
+
+    form = UserCreationForm()
+
+    # if request.method == 'POST':
+    #     form = UserCreationForm(request.POST)
+    #     if form.is_valid():
+    #         user = form.save(commit=False)
+    #         user.username = user.username.lower()
+    #         user.save()
+    #         login(request, user)
+    #         return redirect('home')
+    #     else:
+    #         messages.error(request, 'An Error as Occured during registration')
+
+    context = {'order':order, 'items':items,'cartItems':cartItems, 'form':form}
     return render(request,'base/login.html', context)
 
 

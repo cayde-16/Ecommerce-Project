@@ -19,14 +19,10 @@ keyrings.alt==3.0
 kiwisolver==1.1.0
 Markdown==3.1.1
 matplotlib==2.2.5
-numpy==1.16.6
-pandas==0.24.2
 Pillow==6.2.2
-PyAudio==0.2.11
 pycrypto==2.6.1
 pydot==1.2.3
 pydot-ng==1.0.0
-pygobject==3.40.0
 pyparsing==2.4.7
 python-dateutil==2.8.2
 pytz==2022.1

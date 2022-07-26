@@ -38,4 +38,4 @@ subprocess32==3.5.4
 tk==0.1.0
 urllib3==1.26.11
 wxPython==3.0.2.0
-wxPython-common==3.0.2.0s
+wxPython-common==4.0.5s
